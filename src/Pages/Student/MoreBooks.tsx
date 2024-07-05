@@ -26,7 +26,7 @@ const MoreBooks = () => {
   const fetchBooks = () => {
     if (title === "currently_issued") {
       axios
-      .get("https://autolib-backend-api.onrender.com/api/issues/current-issues", {
+      .get(`${import.meta.env.VITE_API_BACKEND}/api/issues/current-issues`, {
         params: {
           user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
         },
@@ -36,13 +36,13 @@ const MoreBooks = () => {
 
     } else if (title === "new_arrivals") {
       axios
-        .get("https://autolib-backend-api.onrender.com/api/books/recently-added")
+        .get(`${import.meta.env.VITE_API_BACKEND}/api/books/recently-added`)
         .then((response) => setBooks(response.data))
         .catch((error) => console.log(error));
 
     }else{
       axios
-      .get("https://autolib-backend-api.onrender.com/api/books/genre", {
+      .get(`${import.meta.env.VITE_API_BACKEND}/api/books/genre`, {
         params: {
             genre: title
         },

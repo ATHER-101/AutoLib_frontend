@@ -19,7 +19,7 @@ const Home = () => {
   const [recentGenres,setRecentGenres] = useState<RecentGenres[]>([])
 
   const fetchIssues = ()=>{
-    axios.get("https://autolib-backend-api.onrender.com/api/issues/current-issues",{
+    axios.get(`${import.meta.env.VITE_API_BACKEND}/api/issues/current-issues`,{
       params:{
         user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
         limit: 12
@@ -30,7 +30,7 @@ const Home = () => {
   }
   
   const fetchNewArrivals = ()=>{
-    axios.get("https://autolib-backend-api.onrender.com/api/books/recently-added",{
+    axios.get(`${import.meta.env.VITE_API_BACKEND}/api/books/recently-added`,{
       params:{
         limit: 12
       }
@@ -40,7 +40,7 @@ const Home = () => {
   }
   
   const fetchRecentGenres = ()=>{
-    axios.get("https://autolib-backend-api.onrender.com/api/users/recent-genres",{
+    axios.get(`${import.meta.env.VITE_API_BACKEND}/api/users/recent-genres`,{
       params:{
         user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173"
       }

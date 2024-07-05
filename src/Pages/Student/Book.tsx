@@ -23,7 +23,7 @@ const Book = () => {
 
   const fetchBook = async () => {
     axios
-      .get(`https://autolib-backend-api.onrender.com/api/books/${book_id}`)
+      .get(`${import.meta.env.VITE_API_BACKEND}/api/books/${book_id}`)
       .then((response) => {
         console.log(response.data[0])
         return setBook(response.data[0]);
@@ -33,7 +33,7 @@ const Book = () => {
       });
 
     axios
-      .get(`https://autolib-backend-api.onrender.com/api/check-bookmark`, {
+      .get(`${import.meta.env.VITE_API_BACKEND}/api/check-bookmark`, {
         params: {
           user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
           book_id: book_id,
@@ -48,7 +48,7 @@ const Book = () => {
       });
       
       axios
-      .get(`https://autolib-backend-api.onrender.com/api/issues/check-issue`, {
+      .get(`${import.meta.env.VITE_API_BACKEND}/api/issues/check-issue`, {
         params: {
           user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
           book_id: book_id,
@@ -72,7 +72,7 @@ const Book = () => {
     if (bookmarked !== null) {
       if (bookmarked) {
         axios
-          .post(`https://autolib-backend-api.onrender.com/api/remove-bookmark`, {
+          .post(`${import.meta.env.VITE_API_BACKEND}/api/remove-bookmark`, {
             user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
             book_id: book_id,
           })
@@ -87,7 +87,7 @@ const Book = () => {
           });
       } else {
         axios
-          .post(`https://autolib-backend-api.onrender.com/api/add-bookmark`, {
+          .post(`${import.meta.env.VITE_API_BACKEND}/api/add-bookmark`, {
             user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
             book_id: book_id,
           })
@@ -109,7 +109,7 @@ const Book = () => {
     if (issued !== null) {
       if (issued) {
         axios
-          .post(`https://autolib-backend-api.onrender.com/api/issues/return-book`, {
+          .post(`${import.meta.env.VITE_API_BACKEND}/api/issues/return-book`, {
             user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
             book_id: book_id,
           })
@@ -124,7 +124,7 @@ const Book = () => {
           });
       } else {
         axios
-          .post(`https://autolib-backend-api.onrender.com/api/issues/issue-book`, {
+          .post(`${import.meta.env.VITE_API_BACKEND}/api/issues/issue-book`, {
             user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
             book_id: book_id,
           })

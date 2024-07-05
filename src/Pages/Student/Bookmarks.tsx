@@ -10,10 +10,10 @@ interface Books {
 }
 
 const Bookmarks = () => {
-  const [bookmarks,setBookmarks] = useState<Books[]>([])
+  const [bookmarks,setBookmarks] = useState<Books[]>([]);
 
   const fetchBookmarks = async ()=>{
-    axios.get('https://autolib-backend-api.onrender.com/api/bookmarks',{
+    axios.get(`${import.meta.env.VITE_API_BACKEND}/api/bookmarks`,{
       params: {
         user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173"
       }

@@ -35,7 +35,7 @@ const Bookmarks = () => {
       <Typography variant="h6" sx={{fontSize:{xs:20,sm:27} ,my:1}}>
         Bookmarks
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         {bookmarks.map((book) => {
           return (
             <Grid item xs={4} sm={2} pb={1} key={book.id}>

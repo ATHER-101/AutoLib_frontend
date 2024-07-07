@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Grid, Typography } from "@mui/material";
+import { Box, Button, Chip, Grid, Paper, Typography } from "@mui/material";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -99,6 +99,14 @@ const Book = () => {
     }
   }, [book_id, bookmarked]);
 
+  const handleImgError = ()=>{
+    setBook(prevBook=>{
+      const tempBook = prevBook;
+      if(tempBook) tempBook.cover_img = "/loading.jpg";
+      return tempBook;
+    });
+  }
+
   const handleIssue = useCallback(() => {
     if (issued !== null) {
       if (issued) {
@@ -136,7 +144,18 @@ const Book = () => {
   return (
     <Grid container spacing={2} p={2}>
       <Grid item xs={12} sm={3.5}>
-        <CoverImg src={book ? book.cover_img : ""} alt="loading..." fallbackSrc="/loading.jpg" />
+        <Paper
+          component="img"
+          src={book?.cover_img}
+          alt="Loading..."
+          onError={handleImgError}
+          sx={{
+            aspectRatio: "6 / 9",
+            width: "100%",
+            objectFit: "cover",
+            borderRadius: 1.5,
+          }}
+        />
       </Grid>
       <Grid item xs={12} sm={8.5}>
         <Box

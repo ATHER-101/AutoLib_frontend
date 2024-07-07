@@ -6,7 +6,7 @@ const CoverImg = ({
   alt,
   fallbackSrc,
 }: {
-  src: string;
+  src: string | undefined;
   alt: string;
   fallbackSrc: string;
 }) => {

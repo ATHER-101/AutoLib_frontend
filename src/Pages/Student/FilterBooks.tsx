@@ -1,4 +1,4 @@
-import { Box, Chip, Grid, Paper, Typography } from "@mui/material";
+import { Box, Chip, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";

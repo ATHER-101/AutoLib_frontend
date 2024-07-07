@@ -2,6 +2,7 @@ import { Box, IconButton, Paper, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
 import { useCallback } from "react";
+import CoverImg from "./CoverImg";
 
 interface Books {
   id: string;
@@ -80,20 +81,7 @@ export default function BookScroller({
                   mr: 2,
                 }}
               >
-                <Paper
-                  component="img"
-                  src={book.cover_img || "/book-cover.webp"}
-                  sx={{
-                    position: "relative",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    borderRadius: 1.5,
-                  }}
-                />
+                <CoverImg src={book.cover_img} alt="Loading..." fallbackSrc="/loading.jpg" />
                 <Typography
                   sx={{
                     pt: 1,

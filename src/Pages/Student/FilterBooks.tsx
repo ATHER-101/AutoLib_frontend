@@ -2,6 +2,7 @@ import { Box, Chip, Grid, Paper, Typography } from "@mui/material";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import CoverImg from "../../Components/CoverImg";
 
 interface Books {
   id: string;
@@ -39,11 +40,11 @@ const FilterBooks = () => {
       })
       .then((response) => setBooks(response.data))
       .catch((error) => console.log(error));
-  },[setBooks]);
+  },[setBooks, available, genre]);
 
   useEffect(() => {
     fetchFilteredBooks();
-  }, [available, genre, fetchFilteredBooks]);
+  }, [fetchFilteredBooks]);
 
   const handleToggle = () => {
     setAvailable((available) => !available);
@@ -104,16 +105,7 @@ const FilterBooks = () => {
             return (
               <Grid item xs={4} sm={2} pb={1} key={book.id}>
                 <Link to={`/student/${book.id}`}>
-                  <Paper
-                    component="img"
-                    src={book.cover_img || "/book-cover.webp"}
-                    sx={{
-                      aspectRatio: "6 / 9",
-                      width: "100%",
-                      objectFit: "cover",
-                      borderRadius: 1.5,
-                    }}
-                  />
+                  <CoverImg src={book.cover_img} alt="Loading..." fallbackSrc="/loading.jpg" />
                   <Typography
                     variant="body1"
                     component="p"

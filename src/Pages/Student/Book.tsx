@@ -1,7 +1,8 @@
-import { Box, Button, Chip, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import CoverImg from "../../Components/CoverImg";
 
 interface Book {
   id: string;
@@ -58,14 +59,13 @@ const Book = () => {
       .catch((error) => {
         return console.log(error);
       });
-  }, [book_id,setBook,setBookmarked,setIssued]);
+  }, [book_id]);
 
   useEffect(() => {
     fetchBook();
   }, [fetchBook]);
 
   const handleBookmark = useCallback(() => {
-    console.log("clicked!");
     if (bookmarked !== null) {
       if (bookmarked) {
         axios
@@ -97,10 +97,9 @@ const Book = () => {
           });
       }
     }
-  },[book_id,bookmarked,setBookmarked]);
+  }, [book_id, bookmarked]);
 
   const handleIssue = useCallback(() => {
-    console.log("clicked!");
     if (issued !== null) {
       if (issued) {
         axios
@@ -132,21 +131,12 @@ const Book = () => {
           });
       }
     }
-  },[book_id,issued,setIssued]);
+  }, [book_id, issued]);
 
   return (
     <Grid container spacing={2} p={2}>
       <Grid item xs={12} sm={3.5}>
-        <Paper
-          component="img"
-          src={book?.cover_img || "/book-cover.webp"}
-          sx={{
-            aspectRatio: "6 / 9",
-            width: "100%",
-            objectFit: "cover",
-            borderRadius: 2,
-          }}
-        />
+        <CoverImg src={book ? book.cover_img : ""} alt="loading..." fallbackSrc="/loading.jpg" />
       </Grid>
       <Grid item xs={12} sm={8.5}>
         <Box
@@ -156,7 +146,6 @@ const Book = () => {
             height: "100%",
           }}
         >
-          {/* <Box> */}
           <Typography
             component="h6"
             sx={{

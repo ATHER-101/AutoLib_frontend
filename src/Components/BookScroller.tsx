@@ -1,6 +1,7 @@
 import { Box, IconButton, Paper, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
+import { useCallback } from "react";
 
 interface Books {
   id: string;
@@ -17,12 +18,12 @@ export default function BookScroller({
   colored?: boolean;
   books: Books[];
 }) {
-  const formatString = (string: string) => {
+  const formatString = useCallback((string: string) => {
     return string
       .split("_")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-  };
+  },[]);
 
   if (books.length === 0) return <></>;
 

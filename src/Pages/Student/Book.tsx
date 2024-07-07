@@ -1,6 +1,6 @@
 import { Box, Button, Chip, Grid, Paper, Typography } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 interface Book {
@@ -21,11 +21,10 @@ const Book = () => {
   const [bookmarked, setBookmarked] = useState<Boolean | null>(null);
   const [issued, setIssued] = useState<Boolean | null>(null);
 
-  const fetchBook = async () => {
+  const fetchBook = useCallback(() => {
     axios
       .get(`${import.meta.env.VITE_API_BACKEND}/api/books/${book_id}`)
       .then((response) => {
-        console.log(response.data[0])
         return setBook(response.data[0]);
       })
       .catch((error) => {
@@ -40,14 +39,13 @@ const Book = () => {
         },
       })
       .then((response) => {
-        console.log("bookmarked",response.data)
         return setBookmarked(response.data.length === 0 ? false : true);
       })
       .catch((error) => {
         return console.log(error);
       });
-      
-      axios
+
+    axios
       .get(`${import.meta.env.VITE_API_BACKEND}/api/issues/check-issue`, {
         params: {
           user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
@@ -55,19 +53,18 @@ const Book = () => {
         },
       })
       .then((response) => {
-        console.log("issued",response.data)
         return setIssued(response.data.length === 0 ? false : true);
       })
       .catch((error) => {
         return console.log(error);
       });
-  };
+  }, [book_id,setBook,setBookmarked,setIssued]);
 
   useEffect(() => {
     fetchBook();
-  }, []);
+  }, [fetchBook]);
 
-  const handleBookmark = () => {
+  const handleBookmark = useCallback(() => {
     console.log("clicked!");
     if (bookmarked !== null) {
       if (bookmarked) {
@@ -77,7 +74,6 @@ const Book = () => {
             book_id: book_id,
           })
           .then((response) => {
-            console.log(response.data);
             if (response.status === 200) {
               setBookmarked(false);
             }
@@ -92,7 +88,6 @@ const Book = () => {
             book_id: book_id,
           })
           .then((response) => {
-            console.log(response.data);
             if (response.status === 200) {
               setBookmarked(true);
             }
@@ -102,9 +97,9 @@ const Book = () => {
           });
       }
     }
-  };
+  },[book_id,bookmarked,setBookmarked]);
 
-  const handleIssue = () => {
+  const handleIssue = useCallback(() => {
     console.log("clicked!");
     if (issued !== null) {
       if (issued) {
@@ -114,7 +109,6 @@ const Book = () => {
             book_id: book_id,
           })
           .then((response) => {
-            console.log(response.data);
             if (response.status === 200) {
               setIssued(false);
             }
@@ -129,7 +123,6 @@ const Book = () => {
             book_id: book_id,
           })
           .then((response) => {
-            console.log(response.data);
             if (response.status === 200) {
               setIssued(true);
             }
@@ -139,7 +132,7 @@ const Book = () => {
           });
       }
     }
-  };
+  },[book_id,issued,setIssued]);
 
   return (
     <Grid container spacing={2} p={2}>
@@ -204,9 +197,17 @@ const Book = () => {
                 size="large"
                 fullWidth
                 color="error"
-                onClick={handleIssue}
+                onClick={
+                  book?.remaining && book?.remaining > 0
+                    ? handleIssue
+                    : () => console.log("Out Of Stock")
+                }
               >
-                {issued ? "Return Book" : "Issue Book"}
+                {book?.remaining && book?.remaining > 0
+                  ? issued
+                    ? "Return Book"
+                    : "Issue Book"
+                  : "Out Of Stock"}
               </Button>
             </Grid>
             <Grid item xs={12} sm={6}>

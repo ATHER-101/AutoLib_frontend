@@ -7,6 +7,8 @@ import Notifications from "./Pages/Student/Notifications";
 import { Routes, Route } from "react-router-dom";
 import Bookmarks from "./Pages/Student/Bookmarks";
 import MoreBooks from "./Pages/Student/MoreBooks";
+import Search from "./Pages/Student/Search";
+import FilterBooks from "./Pages/Student/FilterBooks";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="notifications" element={<Notifications />} />
           <Route path="bookmarks" element={<Bookmarks />} />
+          <Route path="search" element={<Search />} />
+          <Route path="filter-books" element={<FilterBooks/>} />
           <Route path=":book_id" element={<Book />} />
           <Route path="more/:title" element={<MoreBooks />} />
         </Route>

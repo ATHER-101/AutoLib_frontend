@@ -1,7 +1,7 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface Books {
   id:string;
@@ -9,34 +9,38 @@ interface Books {
   cover_img:string;
 }
 
-const Bookmarks = () => {
-  const [bookmarks,setBookmarks] = useState<Books[]>([]);
+const Search = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const query = searchParams.get("query") || "";
 
-  const fetchBookmarks = useCallback( ()=>{
-    axios.get(`${import.meta.env.VITE_API_BACKEND}/api/bookmarks`,{
+  const [searchBooks,setSearchBooks] = useState<Books[]>([]);
+
+  const fetchSearchBooks = useCallback( ()=>{
+    axios.get(`${import.meta.env.VITE_API_BACKEND}/api/search-books`,{
       params: {
-        user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173"
+        search: query
       }
     })
     .then((response)=>{
-      return setBookmarks(response.data);
+      return setSearchBooks(response.data);
     })
     .catch((error)=>{
       return console.log(error);
     })
-  },[setBookmarks]);
+  },[query, setSearchBooks]);
 
   useEffect(()=>{
-    fetchBookmarks();
-  },[fetchBookmarks])
+    fetchSearchBooks();
+  },[query,fetchSearchBooks]);
 
   return (
     <Box mx={3}>
       <Typography variant="h6" sx={{fontSize:{xs:20,sm:27} ,my:1}}>
-        Bookmarks
+        Search Results: {query}
       </Typography>
       <Grid container spacing={2}>
-        {bookmarks.map((book) => {
+        {searchBooks.map((book) => {
           return (
             <Grid item xs={4} sm={2} pb={1} key={book.id}>
               <Link to={`/student/${book.id}`}>
@@ -73,4 +77,4 @@ const Bookmarks = () => {
   );
 };
 
-export default Bookmarks;
+export default Search;

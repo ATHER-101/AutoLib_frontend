@@ -1,6 +1,6 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 interface Books {
@@ -14,16 +14,16 @@ const MoreBooks = () => {
 
   const [books, setBooks] = useState<Books[]>([]);
 
-  const formatString = (string: string | undefined) => {
+  const formatString = useCallback((string: string | undefined) => {
     return !string
       ? undefined
       : string
           .split("_")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" ");
-  };
+  },[]);
 
-  const fetchBooks = () => {
+  const fetchBooks = useCallback(() => {
     if (title === "currently_issued") {
       axios
       .get(`${import.meta.env.VITE_API_BACKEND}/api/issues/current-issues`, {
@@ -50,11 +50,11 @@ const MoreBooks = () => {
       .then((response) => setBooks(response.data))
       .catch((error) => console.log(error));
     }
-  };
+  },[setBooks]);
 
   useEffect(()=>{
     fetchBooks();
-  },[]);
+  },[fetchBooks]);
 
   return (
     <Box mx={3}>

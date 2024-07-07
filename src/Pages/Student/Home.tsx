@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BookScroller from "../../Components/BookScroller";
 import axios from "axios";
 
@@ -18,7 +18,7 @@ const Home = () => {
   const [newArrivals,setNewArrivals] = useState<Books[]>([]);
   const [recentGenres,setRecentGenres] = useState<RecentGenres[]>([])
 
-  const fetchIssues = ()=>{
+  const fetchIssues = useCallback(()=>{
     axios.get(`${import.meta.env.VITE_API_BACKEND}/api/issues/current-issues`,{
       params:{
         user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
@@ -27,9 +27,9 @@ const Home = () => {
     })
     .then((response)=>setIssues(response.data))
     .catch((error)=>console.log(error))
-  }
+  },[setIssues]);
   
-  const fetchNewArrivals = ()=>{
+  const fetchNewArrivals = useCallback(()=>{
     axios.get(`${import.meta.env.VITE_API_BACKEND}/api/books/recently-added`,{
       params:{
         limit: 12
@@ -37,9 +37,9 @@ const Home = () => {
     })
     .then((response)=>setNewArrivals(response.data))
     .catch((error)=>console.log(error))
-  }
+  },[setNewArrivals]);
   
-  const fetchRecentGenres = ()=>{
+  const fetchRecentGenres = useCallback(()=>{
     axios.get(`${import.meta.env.VITE_API_BACKEND}/api/users/recent-genres`,{
       params:{
         user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173"
@@ -47,13 +47,13 @@ const Home = () => {
     })
     .then((response)=>setRecentGenres(response.data))
     .catch((error)=>console.log(error))
-  }
+  },[setRecentGenres]);
 
   useEffect(()=>{
     fetchIssues();
     fetchNewArrivals();
     fetchRecentGenres();
-  },[])
+  },[fetchIssues, fetchNewArrivals, fetchRecentGenres])
 
   return (
     <>

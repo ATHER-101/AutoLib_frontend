@@ -2,7 +2,7 @@ import { Box, Button, Chip, Grid, Paper, Typography } from "@mui/material";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import CoverImg from "../../Components/CoverImg";
+// import CoverImg from "../../Components/CoverImg";
 
 interface Book {
   id: string;

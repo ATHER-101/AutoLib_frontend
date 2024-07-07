@@ -25,7 +25,7 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 }));
 
 export default function Navbar() {
-  const [notifications,setNotifications] = useState<number>(4);
+  const [notifications,_setNotifications] = useState<number>(4);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {

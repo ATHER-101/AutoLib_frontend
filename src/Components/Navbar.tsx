@@ -25,7 +25,7 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 }));
 
 export default function Navbar() {
-  const [notifications,_setNotifications] = useState<number>(4);
+  const [notifications, _setNotifications] = useState<number>(4);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -101,14 +101,12 @@ export default function Navbar() {
                 sx={{
                   p: 1,
                   color: "#FF5733",
-                  display: { xs: "none", sm: "inline-block" },
+                  display: { xs: "none", sm: "flex" },
                 }}
               >
                 <Badge
                   badgeContent={notifications}
                   sx={{
-                    right: 0,
-                    top: -3,
                     padding: "1px",
                   }}
                   color="error"
@@ -128,10 +126,15 @@ export default function Navbar() {
                 onClick={handleMenu}
                 sx={{ p: 1, color: "#FF5733" }}
               >
-                <Badge color="error" variant="dot" invisible={notifications==0} sx={{display:{xs:"flex",sm:"none"}}}>
+                <Badge
+                  color="error"
+                  variant="dot"
+                  invisible={notifications == 0}
+                  sx={{ display: { xs: "flex", sm: "none" } }}
+                >
                   <AccountCircle />
                 </Badge>
-                <AccountCircle sx={{display:{xs:"none",sm:"flex"}}} />
+                <AccountCircle sx={{ display: { xs: "none", sm: "flex" } }} />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -158,7 +161,9 @@ export default function Navbar() {
                     </StyledBadge>
                   </MenuItem>
                 </Link>
-                <MenuItem onClick={handleClose}>LogOut</MenuItem>
+                <Link to="/signout">
+                  <MenuItem onClick={handleClose}>LogOut</MenuItem>
+                </Link>
               </Menu>
             </div>
             {/* profile */}

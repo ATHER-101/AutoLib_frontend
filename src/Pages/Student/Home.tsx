@@ -13,16 +13,16 @@ interface RecentGenres {
   books: Books[];
 }
 
-const Home = () => {
+const Home = ({ user_id }: { user_id: string | undefined}) => {
   const [issues,setIssues] = useState<Books[]>([]);
   const [newArrivals,setNewArrivals] = useState<Books[]>([]);
-  const [recentGenres,setRecentGenres] = useState<RecentGenres[]>([])
+  const [recentGenres,setRecentGenres] = useState<RecentGenres[]>([]);
 
   const fetchIssues = useCallback(()=>{
     axios.get(`${import.meta.env.VITE_API_BACKEND}/api/issues/current-issues`,{
       params:{
-        user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
-        limit: 12
+        user_id,
+        limit: 12,
       }
     })
     .then((response)=>setIssues(response.data))
@@ -42,7 +42,7 @@ const Home = () => {
   const fetchRecentGenres = useCallback(()=>{
     axios.get(`${import.meta.env.VITE_API_BACKEND}/api/users/recent-genres`,{
       params:{
-        user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173"
+        user_id
       }
     })
     .then((response)=>setRecentGenres(response.data))

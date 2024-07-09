@@ -10,7 +10,7 @@ interface Books {
   cover_img: string;
 }
 
-const MoreBooks = () => {
+const MoreBooks = ({ user_id }: { user_id: string | undefined}) => {
   const { title } = useParams();
 
   const [books, setBooks] = useState<Books[]>([]);
@@ -29,7 +29,7 @@ const MoreBooks = () => {
       axios
       .get(`${import.meta.env.VITE_API_BACKEND}/api/issues/current-issues`, {
         params: {
-          user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
+          user_id
         },
       })
       .then((response) => setBooks(response.data))

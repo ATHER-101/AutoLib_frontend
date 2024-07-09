@@ -15,7 +15,7 @@ interface Book {
   added: Date;
 }
 
-const Book = () => {
+const Book = ({ user_id }: { user_id: string | undefined}) => {
   const { book_id } = useParams();
 
   const [book, setBook] = useState<Book | null>(null);
@@ -35,7 +35,7 @@ const Book = () => {
     axios
       .get(`${import.meta.env.VITE_API_BACKEND}/api/check-bookmark`, {
         params: {
-          user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
+          user_id,
           book_id: book_id,
         },
       })
@@ -49,7 +49,7 @@ const Book = () => {
     axios
       .get(`${import.meta.env.VITE_API_BACKEND}/api/issues/check-issue`, {
         params: {
-          user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
+          user_id,
           book_id: book_id,
         },
       })
@@ -70,7 +70,7 @@ const Book = () => {
       if (bookmarked) {
         axios
           .post(`${import.meta.env.VITE_API_BACKEND}/api/remove-bookmark`, {
-            user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
+            user_id,
             book_id: book_id,
           })
           .then((response) => {
@@ -84,7 +84,7 @@ const Book = () => {
       } else {
         axios
           .post(`${import.meta.env.VITE_API_BACKEND}/api/add-bookmark`, {
-            user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
+            user_id,
             book_id: book_id,
           })
           .then((response) => {
@@ -112,7 +112,7 @@ const Book = () => {
       if (issued) {
         axios
           .post(`${import.meta.env.VITE_API_BACKEND}/api/issues/return-book`, {
-            user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
+            user_id,
             book_id: book_id,
           })
           .then((response) => {
@@ -126,7 +126,7 @@ const Book = () => {
       } else {
         axios
           .post(`${import.meta.env.VITE_API_BACKEND}/api/issues/issue-book`, {
-            user_id: "ebf6cc5a-077a-4401-9858-4cb9e4d34173",
+            user_id,
             book_id: book_id,
           })
           .then((response) => {

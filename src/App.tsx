@@ -31,7 +31,9 @@ function App() {
 
   const fetchAuthStatus = useCallback(() => {
     axios
-      .get(`${import.meta.env.VITE_API_BACKEND}/api/auth/status`)
+      .get(`${import.meta.env.VITE_API_BACKEND}/api/auth/status`, {
+        withCredentials: true,
+      })
       .then((response) => {
         console.log(response.data);
         setUser(response.data.user);

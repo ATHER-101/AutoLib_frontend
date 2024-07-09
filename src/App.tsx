@@ -1,10 +1,13 @@
+import { useEffect, useState, useCallback } from "react";
+import axios from "axios";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Box } from "@mui/material";
+
 import Admin from "./Pages/Admin/Admin";
 import Student from "./Pages/Student/Student";
 import Home from "./Pages/Student/Home";
 import Book from "./Pages/Student/Book";
 import Notifications from "./Pages/Student/Notifications";
-
-import { Routes, Route, Navigate } from "react-router-dom";
 import Bookmarks from "./Pages/Student/Bookmarks";
 import MoreBooks from "./Pages/Student/MoreBooks";
 import Search from "./Pages/Student/Search";
@@ -12,10 +15,9 @@ import FilterBooks from "./Pages/Student/FilterBooks";
 import SignIn from "./Pages/Auth/SignIn";
 import LogOut from "./Pages/Auth/LogOut";
 import RoleAuth from "./Pages/Auth/RoleAuth";
-import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 import AuthFailed from "./Pages/Auth/AuthFailed";
-import { Box } from "@mui/material";
+
+axios.defaults.withCredentials = true; // Ensure cookies are sent with requests
 
 function App() {
   const [user, setUser] = useState<{
@@ -29,9 +31,7 @@ function App() {
 
   const fetchAuthStatus = useCallback(() => {
     axios
-      .get(`${import.meta.env.VITE_API_BACKEND}/api/auth/status`, {
-        withCredentials: true,
-      })
+      .get(`${import.meta.env.VITE_API_BACKEND}/api/auth/status`)
       .then((response) => {
         console.log(response.data);
         setUser(response.data.user);

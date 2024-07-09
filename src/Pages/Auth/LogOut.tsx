@@ -2,8 +2,8 @@ import { Avatar, Box, Button, Grid, Paper, Typography } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 
-const SignOut = () => {
-  const signOut = () => {
+const LogOut = () => {
+  const logOut = () => {
     window.open(`${import.meta.env.VITE_API_BACKEND}/api/auth/logout`, "_self");
   };
 
@@ -16,8 +16,6 @@ const SignOut = () => {
         width: "100vw",
         background: `linear-gradient(rgba(255, 87, 51, 0.2), rgba(255, 87, 51, 1)), url(https://images.unsplash.com/photo-1700308234428-c619d7408fbd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
         backgroundRepeat: "no-repeat",
-        backgroundColor: (t) =>
-          t.palette.mode === "light" ? t.palette.grey[50] : t.palette.grey[900],
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -90,7 +88,7 @@ const SignOut = () => {
               align="center"
               sx={{ my: 5 }}
             >
-              Sign out of AutoLib!
+              Log out of AutoLib!
             </Typography>
             <Button
               size="large"
@@ -101,9 +99,9 @@ const SignOut = () => {
                 bgcolor: "#FF5733",
                 "&:hover": { bgcolor: "#FF5733" },
               }}
-              onClick={signOut}
+              onClick={logOut}
             >
-              Sign Out
+              Log Out
             </Button>
           </Paper>
         </Box>
@@ -112,4 +110,4 @@ const SignOut = () => {
   );
 };
 
-export default SignOut;
+export default LogOut;

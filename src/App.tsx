@@ -10,7 +10,7 @@ import MoreBooks from "./Pages/Student/MoreBooks";
 import Search from "./Pages/Student/Search";
 import FilterBooks from "./Pages/Student/FilterBooks";
 import SignIn from "./Pages/Auth/SignIn";
-import SignOut from "./Pages/Auth/SignOut";
+import LogOut from "./Pages/Auth/LogOut";
 import RoleAuth from "./Pages/Auth/RoleAuth";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
@@ -97,8 +97,8 @@ function App() {
           element={user ? <Navigate to="/" /> : <SignIn />}
         />
         <Route
-          path="/signout"
-          element={user ? <SignOut /> : <Navigate to="/" />}
+          path="/logout"
+          element={user ? <LogOut /> : <Navigate to="/" />}
         />
         <Route
           path="/auth-failed"

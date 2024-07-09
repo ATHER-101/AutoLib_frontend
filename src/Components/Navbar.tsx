@@ -161,7 +161,7 @@ export default function Navbar() {
                     </StyledBadge>
                   </MenuItem>
                 </Link>
-                <Link to="/signout">
+                <Link to="/logout">
                   <MenuItem onClick={handleClose}>LogOut</MenuItem>
                 </Link>
               </Menu>

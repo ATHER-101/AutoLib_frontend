@@ -17,8 +17,6 @@ import LogOut from "./Pages/Auth/LogOut";
 import RoleAuth from "./Pages/Auth/RoleAuth";
 import AuthFailed from "./Pages/Auth/AuthFailed";
 
-axios.defaults.withCredentials = true; // Ensure cookies are sent with requests
-
 function App() {
   const [user, setUser] = useState<{
     id: string;
